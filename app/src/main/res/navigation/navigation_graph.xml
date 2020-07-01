@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment"
+    android:id="@+id/navigation_graph">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.arbaelbarca.androidjetpacknavigation.ui.navfragment.ListHomeFragment"
+        android:label="nav_home_fragment"
+        tools:layout="@layout/fragment_list_home">
+        <action
+            android:id="@+id/action_homeFragment_to_detailListFragment"
+            app:destination="@id/detailListFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/detailListFragment"
+        android:name="com.arbaelbarca.androidjetpacknavigation.ui.navfragment.DetailListNewsFragment"
+        android:label="navigation_second_fragment"
+        tools:layout="@layout/fragment_detail_list_news" >
+        <action
+            android:id="@+id/action_detailListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+</navigation>

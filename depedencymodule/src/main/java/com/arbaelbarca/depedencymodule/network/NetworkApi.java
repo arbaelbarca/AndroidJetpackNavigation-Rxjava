@@ -1,0 +1,79 @@
+package com.arbaelbarca.depedencymodule.network;
+
+import android.provider.SyncStateContract;
+
+import com.arbaelbarca.depedencymodule.BuildConfig;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class NetworkApi implements Interceptor {
+    private ApiServices apiServices;
+    private static NetworkApi networkApi;
+    private String credentials;
+
+
+    public NetworkApi() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL_NEWS)
+                .client(provideOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        apiServices = retrofit.create(ApiServices.class);
+
+    }
+
+
+    private static OkHttpClient provideOkHttpClient() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(getLoggingInterceptor())
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request authenticatedRequest = request.newBuilder()
+                                .header("Authorization", "Bearer e2f837df5a78451ea447c78f6b48cf83").build();
+                        return chain.proceed(authenticatedRequest);
+                    }
+                })
+                .readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .build();
+    }
+
+    private static HttpLoggingInterceptor getLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+    }
+
+    public ApiServices getAPI() {
+        return apiServices;
+    }
+
+    public static NetworkApi getInstance() {
+        if (networkApi == null)
+            networkApi = new NetworkApi();
+        return networkApi;
+    }
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
+        Request authenticatedRequest = request.newBuilder()
+                .header("Authorization", credentials).build();
+        return chain.proceed(authenticatedRequest);
+    }
+}
