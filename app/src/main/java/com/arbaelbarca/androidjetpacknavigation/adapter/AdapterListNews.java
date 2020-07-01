@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arbaelbarca.OnClickItem;
+import com.arbaelbarca.androidjetpacknavigation.onclick.OnClickItem;
 import com.arbaelbarca.androidjetpacknavigation.R;
 import com.arbaelbarca.depedencymodule.model.modeltopheadlines.ArticlesItem;
 import com.bumptech.glide.Glide;

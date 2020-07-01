@@ -2,7 +2,6 @@ package com.arbaelbarca.androidjetpacknavigation.ui.navfragment;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arbaelbarca.OnClickItem;
+import com.arbaelbarca.androidjetpacknavigation.onclick.OnClickItem;
 import com.arbaelbarca.androidjetpacknavigation.R;
 import com.arbaelbarca.androidjetpacknavigation.adapter.AdapterListNews;
-import com.arbaelbarca.androidjetpacknavigation.ui.navfragment.DetailListNewsFragment;
 import com.arbaelbarca.depedencymodule.model.modeltopheadlines.ArticlesItem;
 import com.arbaelbarca.depedencymodule.model.modeltopheadlines.ResponseNewsTopHeadlines;
 import com.arbaelbarca.depedencymodule.network.NetworkApi;
