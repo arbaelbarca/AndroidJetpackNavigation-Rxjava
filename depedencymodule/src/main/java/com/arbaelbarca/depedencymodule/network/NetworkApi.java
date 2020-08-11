@@ -44,7 +44,7 @@ public class NetworkApi implements Interceptor {
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
                         Request authenticatedRequest = request.newBuilder()
-                                .header("Authorization", "Bearer e2f837df5a78451ea447c78f6b48cf83").build();
+                                .header("Authorization", "Bearer //tokenBearre from newsapi").build();
                         return chain.proceed(authenticatedRequest);
                     }
                 })
